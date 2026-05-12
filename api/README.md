@@ -76,7 +76,7 @@ The chat endpoint uses OpenAI's GPT-5 model with a supportive mental coach syste
 ### Health Check
 - **URL**: `/api/health`
 - **Method**: GET
-- **Response**: `{"status": "ok"}`
+- **Response**: `{"status": "ok", "openai_key_present": true|false}` — use this on Vercel to confirm the API project sees `OPENAI_API_KEY` (not whether the key is *valid*; chat still proves that).
 
 ## API Documentation
 
