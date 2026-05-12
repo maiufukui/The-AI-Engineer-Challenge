@@ -10,10 +10,24 @@ interface LogLine {
   text: string;
 }
 
-function getApiBase(): string {
-  return (
-    process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://localhost:8000"
-  );
+/**
+ * Chat POST target. Prefer same-origin `/api/chat` (Next proxy) so production
+ * HTTPS sites never call `http://localhost` from the browser. Set
+ * `NEXT_PUBLIC_API_URL` only if you intentionally want the browser to talk
+ * directly to FastAPI (public URL + CORS).
+ */
+function getChatPostUrl(): string {
+  const direct = process.env.NEXT_PUBLIC_API_URL?.trim().replace(/\/$/, "");
+  if (direct) return `${direct}/api/chat`;
+  return "/api/chat";
+}
+
+function uplinkDescription(): string {
+  const direct = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (direct) {
+    return `Direct: ${direct}/api/chat (browser → FastAPI)`;
+  }
+  return "Proxied: POST /api/chat on this host → FastAPI (BACKEND_URL on server; default http://127.0.0.1:8000 for local dev)";
 }
 
 function uid(): string {
@@ -56,7 +70,7 @@ export function TerminalChat() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${getApiBase()}/api/chat`, {
+      const res = await fetch(getChatPostUrl(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: trimmed }),
@@ -95,7 +109,7 @@ export function TerminalChat() {
         {
           id: uid(),
           role: "system",
-          text: `[LINK_FAILURE] ${msg}. Is the API running at ${getApiBase()}?`,
+          text: `[LINK_FAILURE] ${msg}. ${uplinkDescription()}`,
         },
       ]);
     } finally {
@@ -135,7 +149,7 @@ export function TerminalChat() {
           ◈ THE CONSTRUCT — MENTAL COACH INTERFACE
         </p>
         <p className="mt-1 text-xs text-matrix-dim">
-          Backend: {getApiBase()} — session is not persisted
+          {uplinkDescription()} — session is not persisted
         </p>
       </header>
 

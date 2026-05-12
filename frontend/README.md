@@ -17,7 +17,7 @@ This is the **Next.js** front end for the FastAPI coach in `/api`. It looks like
    uv run uvicorn api.index:app --reload
    ```
 
-   Default API URL: `http://localhost:8000`
+   Default API URL: `http://localhost:8000` (same as the Next.js proxy default).
 
 2. **Install front-end dependencies** (first time only):
 
@@ -26,12 +26,10 @@ This is the **Next.js** front end for the FastAPI coach in `/api`. It looks like
    npm install
    ```
 
-3. **Optional:** tell the UI where the API lives (defaults to localhost anyway):
+3. **Optional env** (`cp .env.example .env.local`):
 
-   ```bash
-   cp .env.example .env.local
-   # edit NEXT_PUBLIC_API_URL if your API is not on :8000
-   ```
+   - **`BACKEND_URL`** — where the **Next server** forwards `/api/chat` (default `http://127.0.0.1:8000`). Use this if FastAPI is not on port 8000.
+   - **`NEXT_PUBLIC_API_URL`** — only if you want the **browser** to call FastAPI directly (skip the proxy). Must be a **public HTTPS** URL in production.
 
 4. **Start the Matrix:**
 
@@ -55,9 +53,13 @@ Other useful commands:
 This app is meant to run as a **Next.js** project on Vercel:
 
 - Set the Vercel project **Root Directory** to `frontend` so Vercel picks up this `package.json` and Next’s config.
-- Add an environment variable **`NEXT_PUBLIC_API_URL`** pointing at your **public** FastAPI base URL (include `https://`, no trailing slash drama required—we trim it in code).
+- Add **`BACKEND_URL`** (server-side) to your **public** FastAPI origin, e.g. `https://your-python-api.vercel.app` — **not** `http://localhost:8000`. The UI posts to **`/api/chat` on the Next app**; Next’s serverless function proxies that request to `BACKEND_URL`. After changing env vars, **redeploy** so they take effect.
 
-**Heads-up:** the repo root `vercel.json` is wired for the **Python** serverless API. If you deploy only this folder as a separate Vercel project, you get the shiny terminal UI; point it at wherever your API actually lives.
+Why not `NEXT_PUBLIC_API_URL=http://localhost:8000` on Vercel? The browser runs on each visitor’s machine — “localhost” is *their* laptop, not your API. Same-origin `/api/chat` avoids that trap (and avoids HTTPS → HTTP mixed-content blocks).
+
+Optional: set **`NEXT_PUBLIC_API_URL`** to a public API URL only if you really want the browser to skip the proxy (CORS must allow your Vercel domain).
+
+**Heads-up:** the repo root `vercel.json` is wired for the **Python** serverless API. If you deploy this folder as its own Vercel project, you still need a **reachable** FastAPI somewhere and **`BACKEND_URL`** pointing at it.
 
 ## Design notes (why it looks like this)
 
