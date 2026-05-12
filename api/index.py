@@ -17,7 +17,23 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Do not construct OpenAI() at import time: without OPENAI_API_KEY the SDK raises
+# and the whole Vercel serverless function fails (even GET /). Lazy-init in chat.
+_client: OpenAI | None = None
+
+
+def _get_openai_client() -> OpenAI:
+    """Return a cached OpenAI client once OPENAI_API_KEY is present."""
+    global _client
+    if _client is None:
+        key = os.getenv("OPENAI_API_KEY")
+        if not key:
+            raise HTTPException(
+                status_code=500, detail="OPENAI_API_KEY not configured"
+            )
+        _client = OpenAI(api_key=key)
+    return _client
+
 
 class ChatRequest(BaseModel):
     message: str
@@ -28,10 +44,8 @@ def root():
 
 @app.post("/api/chat")
 def chat(request: ChatRequest):
-    if not os.getenv("OPENAI_API_KEY"):
-        raise HTTPException(status_code=500, detail="OPENAI_API_KEY not configured")
-    
     try:
+        client = _get_openai_client()
         user_message = request.message
         response = client.chat.completions.create(
             model="gpt-5",
@@ -41,5 +55,7 @@ def chat(request: ChatRequest):
             ]
         )
         return {"reply": response.choices[0].message.content}
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error calling OpenAI API: {str(e)}")
