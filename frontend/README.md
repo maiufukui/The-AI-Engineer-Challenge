@@ -59,7 +59,7 @@ Why not `NEXT_PUBLIC_API_URL=http://localhost:8000` on Vercel? The browser runs 
 
 Optional: set **`NEXT_PUBLIC_API_URL`** to a public API URL only if you really want the browser to skip the proxy (CORS must allow your Vercel domain).
 
-**Heads-up:** the repo root `vercel.json` is wired for the **Python** serverless API. If you deploy this folder as its own Vercel project, you still need a **reachable** FastAPI somewhere and **`BACKEND_URL`** pointing at it.
+**Heads-up:** the API is a **FastAPI** app (`api/index.py`); Vercel picks it up via `pyproject.toml` (`[tool.vercel]` entrypoint). Deploy that from the **repo root** as its own Vercel project, then point the frontend’s **`BACKEND_URL`** at it.
 
 ## Design notes (why it looks like this)
 
