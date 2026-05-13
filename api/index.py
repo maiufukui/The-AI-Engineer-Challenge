@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import APIStatusError, AuthenticationError, OpenAI
 import os
+import hashlib
 
 # Load .env locally when python-dotenv is installed; on Vercel, env is injected.
 try:
@@ -44,12 +45,25 @@ def _openai_model() -> str:
     return (os.getenv("OPENAI_MODEL") or "gpt-5").strip()
 
 
+def _openai_key_info() -> dict[str, object]:
+    """Return non-sensitive diagnostics to compare local vs deployed secrets."""
+    key = (os.getenv("OPENAI_API_KEY") or "").strip()
+    return {
+        "present": bool(key),
+        "length": len(key),
+        "fingerprint": hashlib.sha256(key.encode("utf-8")).hexdigest()[:12] if key else "",
+    }
+
+
 @app.get("/api/health")
 def health():
     """Lightweight check; `openai_key_present` helps verify Vercel env without exposing secrets."""
+    key_info = _openai_key_info()
     return {
         "status": "ok",
-        "openai_key_present": bool((os.getenv("OPENAI_API_KEY") or "").strip()),
+        "openai_key_present": key_info["present"],
+        "openai_key_length": key_info["length"],
+        "openai_key_fingerprint": key_info["fingerprint"],
     }
 
 
