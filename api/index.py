@@ -55,6 +55,38 @@ def _openai_key_info() -> dict[str, object]:
     }
 
 
+def _openai_error_detail(error: Exception) -> dict[str, object]:
+    """Extract a safe, non-secret OpenAI error summary for debugging."""
+    detail: dict[str, object] = {
+        "exception": error.__class__.__name__,
+        "message": str(error),
+    }
+
+    status_code = getattr(error, "status_code", None)
+    if status_code is not None:
+        detail["status_code"] = status_code
+
+    response = getattr(error, "response", None)
+    if response is not None:
+        detail["response_status"] = getattr(response, "status_code", None)
+        try:
+            payload = response.json()
+        except Exception:
+            payload = None
+        if isinstance(payload, dict):
+            error_obj = payload.get("error")
+            if isinstance(error_obj, dict):
+                detail["openai_error"] = {
+                    "type": error_obj.get("type"),
+                    "code": error_obj.get("code"),
+                    "message": error_obj.get("message"),
+                    "param": error_obj.get("param"),
+                }
+            else:
+                detail["openai_error"] = payload
+    return detail
+
+
 @app.get("/api/health")
 def health():
     """Lightweight check; `openai_key_present` helps verify Vercel env without exposing secrets."""
@@ -84,16 +116,18 @@ def chat(request: ChatRequest):
             ]
         )
         return {"reply": response.choices[0].message.content}
-    except AuthenticationError:
+    except AuthenticationError as e:
         raise HTTPException(
             status_code=500,
-            detail=(
-                "OpenAI rejected the API key (401). On Vercel: open the project that deploys "
-                "**this API** (Git root, not the `frontend` app) → Settings → Environment Variables "
-                "→ set `OPENAI_API_KEY` to your full secret from https://platform.openai.com/account/api-keys "
-                "(no quotes, no spaces). Enable it for **Production**, then **Redeploy** that API project. "
-                "GET /api/health on the API URL shows `openai_key_present` without leaking the key."
-            ),
+            detail={
+                "summary": "OpenAI rejected the API key (401).",
+                "debug": _openai_error_detail(e),
+                "next_step": (
+                    "If the debug payload shows IP not authorized or an org/project permission issue, "
+                    "check OpenAI project/organization settings. Otherwise verify the backend Vercel "
+                    "project's OPENAI_API_KEY and redeploy."
+                ),
+            },
         ) from None
     except APIStatusError as e:
         raise HTTPException(
