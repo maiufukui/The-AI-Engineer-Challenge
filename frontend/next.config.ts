@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 /**
- * Next.js configuration. The chat UI calls the FastAPI backend via
- * NEXT_PUBLIC_API_URL (see .env.example).
+ * Next.js configuration for the frontend app.
  */
 const nextConfig: NextConfig = {};
 

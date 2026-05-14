@@ -11,22 +11,15 @@ interface LogLine {
 }
 
 /**
- * Chat POST target. Prefer same-origin `/api/chat` (Next proxy) so production
- * HTTPS sites never call `http://localhost` from the browser. Set
- * `NEXT_PUBLIC_API_URL` only if you intentionally want the browser to talk
- * directly to FastAPI (public URL + CORS).
+ * Chat POST target. Always use the same-origin `/api/chat` Next proxy so the
+ * browser never talks to FastAPI directly and never bakes localhost into the
+ * client bundle.
  */
 function getChatPostUrl(): string {
-  const direct = process.env.NEXT_PUBLIC_API_URL?.trim().replace(/\/$/, "");
-  if (direct) return `${direct}/api/chat`;
   return "/api/chat";
 }
 
 function uplinkDescription(): string {
-  const direct = process.env.NEXT_PUBLIC_API_URL?.trim();
-  if (direct) {
-    return `Direct: ${direct}/api/chat (browser → FastAPI)`;
-  }
   return "Proxied: POST /api/chat on this host → FastAPI (BACKEND_URL on server; default http://127.0.0.1:8000 for local dev)";
 }
 
