@@ -198,46 +198,105 @@ For each prompt Identify what capability is being tested (e.g., *summarization a
 
 **1. Prompt:**  
 Explain the concept of object-oriented programming in simple terms to a complete beginner.  
-**Aspect Tested:**  <!-- Write your answer here -->
+**Aspect Tested:**  reasoning
 
 **Response:**  
-<!-- Add your app's response here -->
+ Think of object-oriented programming (OOP) as building your program out of little “things” that act like real-world objects. Each thing (an object) knows some facts about itself and can do certain actions.
+
+Core ideas:
+- Object: A thing with data and behavior. Example: a Dog object has a name and age (data) and can bark or eat (actions).
+- Class: A blueprint for making objects. The Dog class is the recipe; each actual dog (Fido, Luna) is an object made from it.
+- Attributes (or properties): The facts an object stores (name, age, color).
+- Methods: The actions an object can do (bark, eat, sleep).
+
+Why this helps:
+- It organizes code around real-world concepts.
+- It lets you reuse code and make changes more safely.
+
+The “four pillars,” simply:
+- Encapsulation: Keep data and the methods that work on it together. Hide messy details inside the object so other parts of the program use a clean, simple interface.
+- Inheritance: Make a new class from an existing one to reuse and extend it. Example: GuideDog is a specialized kind of Dog.
+- Polymorphism: Same action name, different specific behavior. Example: both Dog and Cat have speak(), but one barks and the other meows.
+- Abstraction: Focus on what an object does, not how it does it. You drive a car without knowing every engine detail.
+
+Tiny example (in plain English):
+- Class: Dog
+  - Attributes: name, age
+  - Methods: bark(), eat(food)
+- Class: GuideDog (inherits from Dog)
+  - Extra method: guideOwner()
+  - Maybe it “barks” more quietly—an adjusted behavior.
+
+Quick practice (1–2 minutes):
+- Pick an everyday thing (Car, BankAccount, Student).
+- List 3 attributes (for Car: color, speed, fuelLevel).
+- List 3 methods (accelerate, refuel, brake).
+- Can you think of a specialized version? (ElectricCar inherits from Car.)
+
+Mindset tip:
+It’s normal for OOP to feel abstract at first. Start by modeling simple, familiar objects. If you can describe a thing’s “nouns” (attributes) and “verbs” (methods), you’re already thinking in OOP.
+
+If you want, tell me a real-life object you care about, and I’ll show you how it would look as classes and objects in a language of your choice.
 
 ---
 
 **2. Prompt:**  
 Read the following paragraph and provide a concise summary of the key points…  
-**Aspect Tested:**  
+**Aspect Tested:**  summarization
 
 **Response:**  
-<!-- Add your app's response here -->
+OOP models programs as “objects” that bundle data (attributes) and behavior (methods).
+- Classes are blueprints; objects are specific instances made from them.
+- Benefits: clearer, real-world organization; code reuse; safer, easier changes.
+- Four pillars: encapsulation (hide internals), inheritance (reuse/extend), polymorphism (same action, different behavior), abstraction (focus on what it does, not how).
+- Example: Dog class (name, age; bark, eat); GuideDog extends Dog (adds guideOwner, can adjust bark).
+- Practice: pick a familiar thing, list 3 attributes and 3 methods, then imagine a specialized subclass.
+- Mindset: start simple—identify nouns (attributes) and verbs (methods); you’re already thinking in OOP.
 
 ---
 
 **3. Prompt:**  
 Write a short, imaginative story (100–150 words) about a robot finding friendship in an unexpected place.  
-**Aspect Tested:**  <!-- Write your answer here -->
+**Aspect Tested:**  creativity
 
 **Response:**  
-<!-- Add your app's response here -->
+ Rho-7 swept the empty city plaza long after humans went home. One night rain stitched the stones together and left a small puddle in a cracked tile. When Rho-7 leaned over, a second robot blinked back—a wavering twin wreathed in stars. “Hello,” Rho-7 said to the sky pooled at its feet. The puddle answered in ripples.
+
+They traded stories: Rho-7 with found screws and bottle caps arranged at the edge; the puddle with passing clouds, shoe soles, and the moon. By day, Rho-7 shaded it with a bent street sign, fed it drips from its coolant line, and learned the language of concentric circles.
+
+Summer came. Heat sipped the puddle thin. When it vanished, Rho-7 found the same friend in a teacup’s sheen, a bus window, a spoon—anywhere the world made room for a reflection.
 
 ---
 
 **4. Prompt:**  
 If a store sells apples in packs of 4 and oranges in packs of 3, how many packs of each do I need to buy to get exactly 12 apples and 9 oranges?  
-**Aspect Tested:**  <!-- Write your answer here -->
+**Aspect Tested:**  reasoning
 
 **Response:**  
-<!-- Add your app's response here -->
+Buy 3 packs of apples and 3 packs of oranges.
+
+- Apples: 12 ÷ 4 = 3 packs
+- Oranges: 9 ÷ 3 = 3 packs
 
 ---
 
 **5. Prompt:**  
 Rewrite the following paragraph in a professional, formal tone…  
-**Aspect Tested:**  <!-- Write your answer here -->
+**Aspect Tested:** creativity
 
 **Response:**  
-<!-- Add your app's response here -->
+Quick checklist
+- 3 packs apples (4-count each)
+- 3 packs oranges (3-count each)
+- At the shelf: confirm pack sizes; use needed ÷ pack size and round up
+- Optional: check weekly deals, bring reusable bags, set a simple budget cap
+
+Ballpark cost (typical US grocery, pre-tax)
+- Apples (4-pack): $4–6 each → 3 packs = $12–18
+- Oranges (3-pack): $3–5 each → 3 packs = $9–15
+- Estimated total: $21–33
+
+Want me to tailor the estimate to your location/store and currency, or keep it as this quick baseline?
 
 ---
 
@@ -246,7 +305,7 @@ Rewrite the following paragraph in a professional, formal tone…
 Do the answers appear to be correct and useful?
 
 **Your Answer:**  
-<!-- Write your answer here -->
+Yes, answers appear correct and useful but reasoning could potentially be tested. Since there is no memory, I cant refine and iterate.
 
 ---
 
@@ -257,26 +316,154 @@ Now test your app with **real-world prompts that are relevant to your use case**
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+What makes someone successful and someone not
 
 **Result:**  
-<!-- App response -->
+“Success” isn’t one thing—it’s progress toward what genuinely matters to you, sustained over time without losing your health or integrity. With that lens, here’s what tends to separate people who reach their version of success from those who don’t:
+
+- Clarity and alignment
+  - Clear definition of success (results + how you want to feel)
+  - Goals aligned with values, strengths, and chosen arena
+- Focus and systems
+  - Fewer priorities, deeper work
+  - Repeatable routines, calendar-first planning, environment design
+- Consistency over intensity
+  - Small daily actions that compound
+  - Process > motivation; “show up at 70%” beats boom-and-bust
+- Feedback and iteration
+  - Measurable leading indicators
+  - Regular review: what worked, what didn’t, what to change this week
+- Mindset and emotional skills
+  - Growth mindset, realistic optimism, self-compassion
+  - Skillful responses to fear, doubt, and boredom; tolerate discomfort
+- Relationships and leverage
+  - Mentors, peers, accountability, asking for help
+  - Tools, systems, and collaboration that multiply output
+- Energy and resilience
+  - Sleep, movement, nutrition, recovery
+  - Boundaries that protect focus and well-being
+- Luck and context (often overlooked)
+  - Timing, privilege, networks, and randomness matter
+  - You can’t control luck, but you can increase “luck surface area” by showing up, sharing work, and trying more (smart) bets
+
+Common blockers
+- Vague goals, chasing others’ definitions, scattered effort
+- Perfectionism, fear of judgment, quitting during plateaus
+- Ignoring basics (sleep, boundaries), going it alone
+
+A simple way to tilt the odds in your favor
+1) Define success for the next 90 days (1 outcome + 2–3 feelings you want more of).
+2) Identify the lead measures (daily/weekly actions that drive the outcome).
+3) Choose the smallest daily habit that makes success likely (15–30 minutes).
+4) Schedule it. Use if-then plans and remove friction the night before.
+5) Track a simple scoreboard (checkboxes, not elaborate apps).
+6) Weekly 20-minute review: wins, lessons, one tweak, next week’s plan.
+7) Build support: one accountability partner or community; ask for specific help.
+
+Quick self-check prompts
+- If I only achieved one thing in the next 90 days, what would change everything else?
+- What’s the 20% that drives 80% of progress here?
+- What tiny step can I do today even on a low-motivation day?
+
+If you want, tell me what “successful” looks like for you right now—career, health, relationships, something else—and I’ll help you design a focused, realistic plan.
+---
+
+**Prompt:**  
+what are best practices to achieve personal goals
+
+**Result:**  
+Great question. Here’s a concise, proven playbook you can use for almost any personal goal.
+
+1) Start with clarity and focus
+- Connect to why: Write one sentence on why this matters and how life improves if you succeed.
+- Pick one main goal (two max). Too many goals dilute progress.
+- Make it SMARTER: Specific, Measurable, Attractive (to you), Realistic, Time-bound, Evaluated, and Recorded.
+
+2) Turn outcomes into behaviors
+- Identify 1–3 lead habits that drive the result (e.g., “study 45 minutes daily,” not just “get an A”).
+- Make a “minimum viable” version for busy days (two-minute rule): the smallest action that still keeps the chain.
+
+3) Plan the when/where/how
+- Implementation intentions: “If it’s 7:00 am at the kitchen table, then I’ll write for 25 minutes.”
+- Time-block it on your calendar like an appointment.
+- Prepare the night before (materials laid out, checklist ready).
+
+4) Design your environment
+- Reduce friction for good habits (gear ready, healthy food visible).
+- Add friction for temptations (apps off phone, snacks out of sight).
+- Create cues and rituals that start the behavior (same playlist, same place).
+
+5) Make it rewarding now
+- Immediate, small rewards after the habit (checkmark, short break).
+- Temptation bundling: pair the task with something you enjoy (podcast only during workouts).
+- Celebrate small wins to reinforce identity: “I’m the kind of person who shows up.”
+
+6) Anticipate obstacles
+- Do a quick premortem: “What could derail me?” and write an if-then for each.
+  Example: “If I miss a morning session, then I’ll do 15 minutes after lunch.”
+- Use “never miss twice” as a rule. Progress over perfection.
+
+7) Track and review
+- Track 1 outcome metric and 1–2 behavior metrics (e.g., workouts/week).
+- Weekly review (15 minutes): What worked? What didn’t? What’s the one tweak for next week?
+- Work in 4–12 week cycles, then reassess and level up.
+
+8) Protect your energy and attention
+- Sleep, nutrition, and movement first—goals fail without energy.
+- Create focus blocks (phone out of room, notifications off).
+- Schedule recovery and boundaries (say no to low-priority commitments).
+
+9) Use support and accountability
+- Tell a friend/coach your plan and check in weekly.
+- Join a community aligned with your goal.
+- Consider stakes (donation pledge) if that motivates you.
+
+10) Mindset that sticks
+- Identity-based: Act like the person who already has the result.
+- Growth mindset and self-compassion: setbacks are data, not verdicts.
+- Consistency beats intensity: small daily actions compound.
+
+Quick template you can fill in today
+- Goal (SMARTER): ___________________________________
+- Why it matters (1–2 lines): __________________________
+- Lead habits (1–3): __________________________________
+- Minimum version (2-minute rule): _____________________
+- When/where (implementation intention): _______________
+- Obstacles → If-then plans: ___________________________
+- Tracking (behavior + outcome): _______________________
+- Weekly review time: _________________________________
+- Reward after completing habit: _______________________
+- Accountability (who/when): __________________________
+
+If you share one specific goal, I’ll help you turn it into a simple 4–12 week plan with tailored habits, obstacles, and metrics.
 
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+what is the meaning of life 
 
 **Result:**  
-<!-- App response -->
+Big question. My short take: meaning isn’t something we “find” once; it’s something we create and renew through how we live. Most people discover it in a blend of three themes:
+- Connection: loving and being loved, belonging to something bigger than yourself.
+- Growth: learning, practicing, becoming more capable and more yourself.
+- Contribution: using your strengths to help, build, or care for others.
 
----
+A simple way to explore your own meaning
+- Values: What do you want your life to stand for? List your top 5 values, then circle the top 2 you’re most proud of when you live them.
+- Stories: When in the last year did you feel most alive, proud, or at peace? What were you doing, and with whom?
+- Strengths: What do people reliably come to you for? What feels energizing, not draining?
+- Service: Whose life gets better when you show up? How could you help them in a way that also lights you up?
+- Presence: What ordinary moments make you quietly glad to be here?
 
-**Prompt:**  
-<!-- Your prompt -->
+One-week experiment to feel more meaning
+- Daily: do one thing for your body (move, rest, nourish), one for your mind (learn, create), and one for someone else (a check-in, a small favor).
+- Choose a “tiny purpose project”: 20–30 minutes a day on something that grows you and helps someone (e.g., mentoring a junior, cooking for a neighbor, practicing a craft to share).
+- End of day: jot 3 sentences—What mattered today? What did I learn? Who did I help?
 
-**Result:**  
-<!-- App response -->
+Optional purpose prompt
+“I use my [strengths/skills] to [serve/contribute to] [people/causes] because [reason that moves you].” Draft it, test it for a week, adjust.
+
+If you’d like, tell me what moments recently felt most meaningful—or where the emptiness shows up—and we can shape a personal compass together.
 
 ---
 
@@ -285,7 +472,7 @@ Now test your app with **real-world prompts that are relevant to your use case**
 Are the vibes of your assistant aligned with your expectations? Why or why not?
 
 **Your Answer:**  
-<!-- Write your answer here -->
+Its pretty good. Professional but empathetic. Answers are direct and clear, and easy to follow. Able to answer and break down complex questions.
 
 ---
 
@@ -303,18 +490,32 @@ Examples:
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+what time is my yoga class tomorrow?
 
 **Result:**  
-<!-- App response -->
+I don’t have access to your calendar, so I’m not sure yet. Can you tell me the studio, class name/instructor, and your city/time zone? If it’s a recurring class, what time is it usually on this weekday?
+
+Quick ways to check right now:
+- Open the studio’s app (or ClassPass/Mindbody) and look at tomorrow’s schedule or your bookings.
+- Search your email/texts for the studio name or “confirmation.”
+- Check your phone calendar for tomorrow.
+
+If you share the details, I can help confirm the time and set a simple plan: when to leave, a reminder, and a quick pack list so you arrive calm and ready.
 
 ---
 
 **Prompt:**  
-<!-- Your prompt -->
+ what is the weather today
 
 **Result:**  
-<!-- App response -->
+I don’t have access to live weather data or your location. Tell me your city (or ZIP/postcode) and I’ll help you interpret today’s forecast and plan what to wear/pack.
+
+Quick ways to check right now:
+- On your phone: Apple Weather or Google/Android Weather
+- Websites: weather.com, your national service (NWS/NOAA in the US, Met Office UK, Environment Canada, BOM Australia)
+- Search “weather [your city]”
+
+Planning tip: once you see the forecast, aim for comfort and options—layer up if temps swing, bring a light rain shell if precipitation is >40%, and use sunscreen/hat if UV index is 6+. If you share the details, I’ll help you turn it into a simple game plan for your day
 
 ---
 
@@ -323,7 +524,8 @@ Examples:
 What are some limitations of your application?
 
 **Your Answer:**  
-<!-- Write your answer here -->
+No memory, real time data, external tools which limit what the app can do. 
+
 
 ---
 
@@ -353,8 +555,8 @@ Then rerun your vibe check and document:
 3. Share your **repo link + deployed Vercel app**
 
 
-
-
+https://frontend-dun-kappa-b0p83v3us5.vercel.app/
+https://github.com/maiufukui/The-AI-Engineer-Challenge
 
 
 
